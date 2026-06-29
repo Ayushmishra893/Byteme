@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
@@ -213,42 +214,32 @@ export default function LoginPage() {
       : STRENGTH_LABELS[signupScore]
     : STRENGTH_HINT;
 
-  /* ── Handle redirect result on page load ── */
-  useEffect(() => {
-    getRedirectResult(auth)
-      .then(async (result) => {
-        if (!result) return;
-        const user = result.user;
-        await fetch("/api/auth/save-account", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            uid: user.uid,
-            displayName: user.displayName,
-            email: user.email,
-            photoURL: user.photoURL,
-          }),
-        });
-        window.location.href = "/dashboard";
-      })
-      .catch((err) => {
-        console.error(err);
-        setFirebaseError(err.message);
-      });
-  }, []);
-
-  /* ── Google sign-in ── */
+  /* ── Google sign-in (popup, not redirect) ── */
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithRedirect(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      await fetch("/api/auth/save-account", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+        }),
+      });
+
+      router.push("/dashboard");
     } catch (err) {
       console.error(err);
       setFirebaseError(err.message);
     }
   };
 
-  /* ── login submit ── */
+  /* ── login submit (real Firebase email/password) ── */
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     const errors = { email: "", password: "" };
@@ -273,15 +264,19 @@ export default function LoginPage() {
     setLoginLoading(true);
     setLoginStatus({ message: "", kind: "" });
 
-    /* placeholder — teammate: replace with real auth call */
-    await new Promise((r) => setTimeout(r, 1100));
-
-    setLoginLoading(false);
-    setLoginStatus({
-      message: "You're logged in. Redirecting to your dashboard…",
-      kind: "success",
-    });
-    setTimeout(() => router.push("/dashboard"), 900);
+    try {
+      await signInWithEmailAndPassword(auth, loginEmail.trim(), loginPassword);
+      setLoginLoading(false);
+      setLoginStatus({
+        message: "You're logged in. Redirecting to your dashboard…",
+        kind: "success",
+      });
+      setTimeout(() => router.push("/dashboard"), 900);
+    } catch (err) {
+      console.error(err);
+      setLoginLoading(false);
+      setLoginStatus({ message: err.message, kind: "error" });
+    }
   };
 
   /* ── forgot password ── */
@@ -293,7 +288,7 @@ export default function LoginPage() {
     });
   };
 
-  /* ── signup submit ── */
+  /* ── signup submit (real Firebase email/password) ── */
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
     const errors = { name: "", email: "", password: "", terms: "" };
@@ -328,15 +323,36 @@ export default function LoginPage() {
     setSignupLoading(true);
     setSignupStatus({ message: "", kind: "" });
 
-    /* placeholder — teammate: replace with real signup call */
-    await new Promise((r) => setTimeout(r, 1100));
+    try {
+      const cred = await createUserWithEmailAndPassword(
+        auth,
+        signupEmail.trim(),
+        signupPassword
+      );
+      const user = cred.user;
 
-    setSignupLoading(false);
-    setSignupStatus({
-      message: "Account created. Setting up your dashboard…",
-      kind: "success",
-    });
-    setTimeout(() => router.push("/onboarding"), 900);
+      await fetch("/api/auth/save-account", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          uid: user.uid,
+          displayName: signupName.trim(),
+          email: user.email,
+          photoURL: "",
+        }),
+      });
+
+      setSignupLoading(false);
+      setSignupStatus({
+        message: "Account created. Setting up your dashboard…",
+        kind: "success",
+      });
+      setTimeout(() => router.push("/dashboard"), 900);
+    } catch (err) {
+      console.error(err);
+      setSignupLoading(false);
+      setSignupStatus({ message: err.message, kind: "error" });
+    }
   };
 
   /* ── render ── */
@@ -725,14 +741,14 @@ export default function LoginPage() {
                     />
                     <span className="text-sm text-muted leading-snug">
                       I agree to the{" "}
-                      <a
+                      
                         href="#"
                         className="font-semibold text-forest hover:text-navy transition-colors"
                       >
                         Terms
                       </a>{" "}
                       and{" "}
-                      <a
+                      
                         href="#"
                         className="font-semibold text-forest hover:text-navy transition-colors"
                       >
