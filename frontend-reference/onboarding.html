@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Set up your profile — CareerGPT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="bg-cream text-ink antialiased">
+
+<!-- ================= MINIMAL NAV ================= -->
+<header class="border-b border-hairline">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 md:h-[72px]">
+      <a href="/" class="flex items-center gap-2.5 shrink-0">
+        <span class="w-8 h-8 rounded-[10px] bg-lime flex items-center justify-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="8.5" stroke="#14233D" stroke-width="1.6"/>
+            <circle cx="12" cy="12" r="1.6" fill="#14233D"/>
+            <path d="M12 3.5V6" stroke="#14233D" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M16.2 8.6L12 12L8.6 14.6" stroke="#14233D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="font-display font-extrabold text-lg text-navy tracking-tight">CareerGPT</span>
+      </a>
+
+      <!-- Step progress indicator -->
+      <div id="stepIndicator" class="hidden sm:flex items-center gap-2.5">
+        <div class="flex items-center gap-2">
+          <span data-step-dot="1" class="step-dot active">1</span>
+          <span class="text-xs font-semibold text-navy">Profile</span>
+        </div>
+        <span class="step-line"></span>
+        <div class="flex items-center gap-2">
+          <span data-step-dot="2" class="step-dot">2</span>
+          <span class="text-xs font-medium text-muted">Target role</span>
+        </div>
+        <span class="step-line"></span>
+        <div class="flex items-center gap-2">
+          <span data-step-dot="3" class="step-dot">3</span>
+          <span class="text-xs font-medium text-muted">Done</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= ONBOARDING FLOW ================= -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+  <div class="grid grid-cols-1 lg:grid-cols-[56%_44%] gap-12 lg:gap-10 items-start">
+
+    <!-- ============ LEFT: FORM STEPS ============ -->
+    <div class="w-full max-w-xl">
+
+      <!-- Mobile step indicator -->
+      <div class="flex sm:hidden items-center gap-2 mb-8">
+        <span data-step-dot-m="1" class="step-dot active">1</span>
+        <span class="step-line flex-1"></span>
+        <span data-step-dot-m="2" class="step-dot">2</span>
+        <span class="step-line flex-1"></span>
+        <span data-step-dot-m="3" class="step-dot">3</span>
+      </div>
+
+      <!-- ============ STEP 1: PROFILE ============ -->
+      <section id="step1" data-step-panel>
+        <span class="inline-flex items-center gap-1.5 bg-forest/10 text-forest text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full mb-5">
+          Step 1 of 3
+        </span>
+        <h1 class="font-display font-extrabold text-navy text-[28px] md:text-[32px] tracking-tight mb-2">Tell us about you</h1>
+        <p class="text-muted text-sm leading-relaxed mb-8">This helps us tailor resume suggestions and interview prep to where you actually are.</p>
+
+        <form id="formStep1" novalidate>
+          <div class="mb-4">
+            <label for="fullName" class="block text-xs font-bold text-navy uppercase tracking-wide mb-2">Full name</label>
+            <input id="fullName" name="fullName" type="text" placeholder="Riya Malhotra" class="auth-input w-full px-4 py-3 rounded-xl text-sm" />
+            <p data-error-for="fullName" class="field-error hidden text-xs text-coral font-medium mt-1.5"></p>
+          </div>
+
+          <div class="mb-4">
+            <label for="currentRole" class="block text-xs font-bold text-navy uppercase tracking-wide mb-2">Current role / status</label>
+            <input id="currentRole" name="currentRole" type="text" placeholder="e.g. Final-year CS student, or Junior Analyst at XYZ" class="auth-input w-full px-4 py-3 rounded-xl text-sm" />
+            <p data-error-for="currentRole" class="field-error hidden text-xs text-coral font-medium mt-1.5"></p>
+          </div>
+
+          <div class="mb-4">
+            <label for="experience" class="block text-xs font-bold text-navy uppercase tracking-wide mb-2">Experience level</label>
+            <div class="relative">
+              <select id="experience" name="experience" class="auth-input select-input w-full px-4 py-3 rounded-xl text-sm appearance-none pr-10">
+                <option value="" disabled selected>Select your experience level</option>
+                <option value="student">Student / no experience yet</option>
+                <option value="intern">Internship experience</option>
+                <option value="0-1">0–1 years</option>
+                <option value="1-3">1–3 years</option>
+                <option value="3-5">3–5 years</option>
+                <option value="5+">5+ years</option>
+              </select>
+              <svg class="select-chevron absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#6B7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p data-error-for="experience" class="field-error hidden text-xs text-coral font-medium mt-1.5"></p>
+          </div>
+
+          <div class="mb-4">
+            <label for="expectedRole" class="block text-xs font-bold text-navy uppercase tracking-wide mb-2">Expected job role</label>
+            <input id="expectedRole" name="expectedRole" type="text" placeholder="e.g. Software Engineer Intern, Product Analyst" class="auth-input w-full px-4 py-3 rounded-xl text-sm" />
+            <p data-error-for="expectedRole" class="field-error hidden text-xs text-coral font-medium mt-1.5"></p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-2">
+            <div>
+              <label for="linkedinUrl" class="block text-xs font-bold text-navy uppercase tracking-wide mb-2">LinkedIn URL</label>
+              <input id="linkedinUrl" name="linkedinUrl" type="url" placeholder="linkedin.com/in/you" class="auth-input w-full px-4 py-3 rounded-xl text-sm" />
+              <p data-error-for="linkedinUrl" class="field-error hidden text-xs text-coral font-medium mt-1.5"></p>
+            </div>
+            <div>
+              <label for="githubUrl" class="block text-xs font-bold text-navy uppercase tracking-wide mb-2">
+                GitHub URL <span class="text-muted font-medium normal-case">(optional)</span>
+              </label>
+              <input id="githubUrl" name="githubUrl" type="url" placeholder="github.com/you" class="auth-input w-full px-4 py-3 rounded-xl text-sm" />
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary w-full px-7 py-3.5 rounded-full text-base font-bold mt-7 flex items-center justify-center gap-2">
+            Continue
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#14233D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+      </section>
+
+      <!-- ============ STEP 2: TARGET ROLE ============ -->
+      <section id="step2" data-step-panel class="hidden">
+        <span class="inline-flex items-center gap-1.5 bg-forest/10 text-forest text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full mb-5">
+          Step 2 of 3
+        </span>
+        <h1 class="font-display font-extrabold text-navy text-[28px] md:text-[32px] tracking-tight mb-2">What are you aiming for?</h1>
+        <p class="text-muted text-sm leading-relaxed mb-8">Give us one real opportunity you're targeting — we'll use it to set up your first match score.</p>
+
+        <form id="formStep2" novalidate>
+          <div class="mb-4">
+            <label for="companyName" class="block text-xs font-bold text-navy uppercase tracking-wide mb-2">Expected company name</label>
+            <input id="companyName" name="companyName" type="text" placeholder="e.g. Nimbus, Goldman Sachs, a startup you like" class="auth-input w-full px-4 py-3 rounded-xl text-sm" />
+            <p data-error-for="companyName" class="field-error hidden text-xs text-coral font-medium mt-1.5"></p>
+          </div>
+
+          <div class="mb-2">
+            <label for="jobDescription" class="block text-xs font-bold text-navy uppercase tracking-wide mb-2">Job description</label>
+            <textarea id="jobDescription" name="jobDescription" rows="8" placeholder="Paste the full job description here — responsibilities, requirements, everything." class="auth-input w-full px-4 py-3 rounded-xl text-sm resize-none"></textarea>
+            <div class="flex items-center justify-between mt-1.5">
+              <p data-error-for="jobDescription" class="field-error hidden text-xs text-coral font-medium"></p>
+              <p id="jdCharCount" class="text-xs text-muted ml-auto">0 characters</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 mt-7">
+            <button type="button" id="backToStep1" class="btn-outline px-6 py-3.5 rounded-full text-sm font-semibold flex items-center justify-center gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 6l-6 6 6 6" stroke="#14233D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Back
+            </button>
+            <button type="submit" class="btn-primary flex-1 px-7 py-3.5 rounded-full text-base font-bold flex items-center justify-center gap-2">
+              <span class="btn-label">Finish setup</span>
+              <svg class="btn-spinner hidden animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#14233D" stroke-width="2.5" stroke-opacity="0.25"/><path d="M21 12a9 9 0 0 0-9-9" stroke="#14233D" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ============ STEP 3: WELCOME ============ -->
+      <section id="step3" data-step-panel class="hidden text-center lg:text-left">
+        <div class="w-16 h-16 rounded-full bg-lime/25 flex items-center justify-center mb-6 mx-auto lg:mx-0">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#2F6F4E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h1 class="font-display font-extrabold text-navy text-[30px] md:text-[36px] tracking-tight mb-3">
+          Welcome, <span id="welcomeName">there</span>.
+        </h1>
+        <p class="text-muted text-base leading-relaxed mb-9 max-w-md mx-auto lg:mx-0">
+          Your command centre is ready. We've set up your first target role — head in and see where you stand.
+        </p>
+        <button id="enterDashboardBtn" class="btn-primary px-8 py-3.5 rounded-full text-base font-bold inline-flex items-center justify-center gap-2.5">
+          Go to my dashboard
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#14233D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </section>
+
+    </div>
+
+    <!-- ============ RIGHT: VISUAL PANEL ============ -->
+    <div class="hidden lg:block relative">
+      <div class="bg-navy rounded-xl2 p-10 md:p-12 relative overflow-hidden h-full flex flex-col justify-between min-h-[560px]">
+        <div class="cta-glow absolute -right-20 -top-20 w-[380px] h-[380px] rounded-full pointer-events-none"></div>
+
+        <div class="relative z-10">
+          <span class="inline-flex items-center gap-1.5 bg-lime/15 text-lime text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full mb-7">
+            Built once, used everywhere
+          </span>
+          <h2 id="sidePanelHeadline" class="font-display font-extrabold text-white text-[28px] md:text-[34px] leading-[1.18] tracking-tight max-w-sm transition-opacity duration-300">
+            A few details now save you hours later.
+          </h2>
+        </div>
+
+        <div class="relative z-10 tracker-preview-panel border border-white/10 rounded-xl2 p-5 backdrop-blur-sm">
+          <div class="flex items-center justify-between mb-4">
+            <p class="font-display font-bold text-white text-sm">What you unlock</p>
+          </div>
+          <div class="space-y-2.5">
+            <div class="flex items-center gap-3 tracker-preview-row rounded-lg p-3">
+              <span class="w-7 h-7 rounded-full bg-lime/90 text-navy text-[11px] font-bold flex items-center justify-center shrink-0">1</span>
+              <p class="text-[12.5px] font-semibold text-white leading-tight">Resume match scoring against real postings</p>
+            </div>
+            <div class="flex items-center gap-3 tracker-preview-row rounded-lg p-3">
+              <span class="w-7 h-7 rounded-full bg-forest text-white text-[11px] font-bold flex items-center justify-center shrink-0">2</span>
+              <p class="text-[12.5px] font-semibold text-white leading-tight">AI-parsed job descriptions, skill by skill</p>
+            </div>
+            <div class="flex items-center gap-3 tracker-preview-row rounded-lg p-3">
+              <span class="w-7 h-7 rounded-full bg-coral text-white text-[11px] font-bold flex items-center justify-center shrink-0">3</span>
+              <p class="text-[12.5px] font-semibold text-white leading-tight">Practice interviews with real scoring</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="relative z-10 text-white/50 text-xs mt-7">Takes about a minute. You can edit everything later in Settings.</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  const TOTAL_STEPS = 3;
+  let currentStep = 1;
+
+  const stepDots = document.querySelectorAll('[data-step-dot]');
+  const stepDotsMobile = document.querySelectorAll('[data-step-dot-m]');
+  const stepPanels = document.querySelectorAll('[data-step-panel]');
+  const sidePanelHeadline = document.getElementById('sidePanelHeadline');
+
+  const sideHeadlines = {
+    1: "A few details now save you hours later.",
+    2: "One real job posting is all we need to start.",
+    3: "You're set. Let's see how you match up."
+  };
+
+  function goToStep(step) {
+    currentStep = step;
+    stepPanels.forEach((panel, i) => panel.classList.toggle('hidden', i + 1 !== step));
+
+    [stepDots, stepDotsMobile].forEach((group) => {
+      group.forEach((dot) => {
+        const dotStep = parseInt(dot.dataset.stepDot || dot.dataset.stepDotM, 10);
+        dot.classList.remove('active', 'complete');
+        if (dotStep < step) dot.classList.add('complete');
+        if (dotStep === step) dot.classList.add('active');
+      });
+    });
+
+    if (sidePanelHeadline) {
+      sidePanelHeadline.style.opacity = 0;
+      setTimeout(() => {
+        sidePanelHeadline.textContent = sideHeadlines[step] || sideHeadlines[1];
+        sidePanelHeadline.style.opacity = 1;
+      }, 180);
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ---------- Field error helpers (same pattern as login.html) ---------- */
+  function setFieldError(inputEl, message) {
+    const errorEl = document.querySelector(`[data-error-for="${inputEl.id}"]`);
+    if (message) {
+      inputEl.classList.add('input-error');
+      inputEl.setAttribute('aria-invalid', 'true');
+      if (errorEl) { errorEl.textContent = message; errorEl.classList.remove('hidden'); }
+    } else {
+      inputEl.classList.remove('input-error');
+      inputEl.removeAttribute('aria-invalid');
+      if (errorEl) { errorEl.textContent = ''; errorEl.classList.add('hidden'); }
+    }
+  }
+
+  function clearErrorOnInput(inputEl) {
+    const evt = inputEl.tagName === 'SELECT' ? 'change' : 'input';
+    inputEl.addEventListener(evt, () => setFieldError(inputEl, ''));
+  }
+
+  const URL_RE = /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/\S*)?$/i;
+
+  /* ---------- STEP 1 ---------- */
+  const formStep1 = document.getElementById('formStep1');
+  const fullName = document.getElementById('fullName');
+  const currentRole = document.getElementById('currentRole');
+  const experience = document.getElementById('experience');
+  const expectedRole = document.getElementById('expectedRole');
+  const linkedinUrl = document.getElementById('linkedinUrl');
+  const githubUrl = document.getElementById('githubUrl');
+
+  [fullName, currentRole, experience, expectedRole, linkedinUrl].forEach(clearErrorOnInput);
+
+  formStep1.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let valid = true;
+
+    if (!fullName.value.trim()) { setFieldError(fullName, 'Enter your full name.'); valid = false; }
+    else setFieldError(fullName, '');
+
+    if (!currentRole.value.trim()) { setFieldError(currentRole, 'Tell us your current role or status.'); valid = false; }
+    else setFieldError(currentRole, '');
+
+    if (!experience.value) { setFieldError(experience, 'Select your experience level.'); valid = false; }
+    else setFieldError(experience, '');
+
+    if (!expectedRole.value.trim()) { setFieldError(expectedRole, 'Enter the role you\'re aiming for.'); valid = false; }
+    else setFieldError(expectedRole, '');
+
+    if (!linkedinUrl.value.trim()) { setFieldError(linkedinUrl, 'LinkedIn URL is required.'); valid = false; }
+    else if (!URL_RE.test(linkedinUrl.value.trim())) { setFieldError(linkedinUrl, 'Enter a valid URL.'); valid = false; }
+    else setFieldError(linkedinUrl, '');
+
+    if (githubUrl.value.trim() && !URL_RE.test(githubUrl.value.trim())) {
+      githubUrl.classList.add('input-error');
+      valid = false;
+    } else {
+      githubUrl.classList.remove('input-error');
+    }
+
+    if (!valid) return;
+
+    try {
+      sessionStorage.setItem('onboarding_profile', JSON.stringify({
+        fullName: fullName.value.trim(),
+        currentRole: currentRole.value.trim(),
+        experience: experience.value,
+        expectedRole: expectedRole.value.trim(),
+        linkedinUrl: linkedinUrl.value.trim(),
+        githubUrl: githubUrl.value.trim()
+      }));
+    } catch (err) { /* sessionStorage unavailable — continue anyway */ }
+
+    goToStep(2);
+  });
+
+  /* ---------- STEP 2 ---------- */
+  const formStep2 = document.getElementById('formStep2');
+  const companyName = document.getElementById('companyName');
+  const jobDescription = document.getElementById('jobDescription');
+  const jdCharCount = document.getElementById('jdCharCount');
+  const step2Submit = formStep2.querySelector('button[type="submit"]');
+  const backToStep1 = document.getElementById('backToStep1');
+
+  [companyName, jobDescription].forEach(clearErrorOnInput);
+
+  jobDescription.addEventListener('input', () => {
+    jdCharCount.textContent = `${jobDescription.value.length.toLocaleString()} characters`;
+  });
+
+  backToStep1.addEventListener('click', () => goToStep(1));
+
+  formStep2.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    let valid = true;
+
+    if (!companyName.value.trim()) { setFieldError(companyName, 'Enter the company you\'re targeting.'); valid = false; }
+    else setFieldError(companyName, '');
+
+    if (!jobDescription.value.trim()) { setFieldError(jobDescription, 'Paste a job description to continue.'); valid = false; }
+    else if (jobDescription.value.trim().length < 40) { setFieldError(jobDescription, 'That looks too short to be a full job description.'); valid = false; }
+    else setFieldError(jobDescription, '');
+
+    if (!valid) return;
+
+    step2Submit.disabled = true;
+    step2Submit.classList.add('opacity-70', 'cursor-not-allowed');
+    step2Submit.querySelector('.btn-label').classList.add('hidden');
+    step2Submit.querySelector('.btn-spinner').classList.remove('hidden');
+
+    try {
+      sessionStorage.setItem('onboarding_target', JSON.stringify({
+        companyName: companyName.value.trim(),
+        jobDescription: jobDescription.value.trim()
+      }));
+    } catch (err) { /* continue */ }
+
+    await new Promise((resolve) => setTimeout(resolve, 900)); // ← replace with real setup/API call
+
+    step2Submit.disabled = false;
+    step2Submit.classList.remove('opacity-70', 'cursor-not-allowed');
+    step2Submit.querySelector('.btn-label').classList.remove('hidden');
+    step2Submit.querySelector('.btn-spinner').classList.add('hidden');
+
+    let savedName = 'there';
+    try {
+      const profile = JSON.parse(sessionStorage.getItem('onboarding_profile') || '{}');
+      if (profile.fullName) savedName = profile.fullName.split(' ')[0];
+    } catch (err) { /* ignore */ }
+    document.getElementById('welcomeName').textContent = savedName;
+
+    goToStep(3);
+  });
+
+  /* ---------- STEP 3 → dashboard ---------- */
+  document.getElementById('enterDashboardBtn').addEventListener('click', () => {
+    window.location.href = '/dashboard';
+  });
+
+})();
+</script>
+
+</body>
+</html>

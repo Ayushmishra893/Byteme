@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard — CareerGPT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="bg-cream text-ink antialiased">
+
+<div class="flex min-h-screen">
+
+  <!-- ================= SIDEBAR (desktop) ================= -->
+  <aside class="hidden lg:flex lg:flex-col w-[248px] shrink-0 bg-white border-r border-hairline h-screen sticky top-0">
+    <div class="px-6 h-[72px] flex items-center border-b border-hairline">
+      <a href="/" class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-[10px] bg-lime flex items-center justify-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#14233D" stroke-width="1.6"/><circle cx="12" cy="12" r="1.6" fill="#14233D"/><path d="M12 3.5V6" stroke="#14233D" stroke-width="1.6" stroke-linecap="round"/><path d="M16.2 8.6L12 12L8.6 14.6" stroke="#14233D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="font-display font-extrabold text-lg text-navy tracking-tight">CareerGPT</span>
+      </a>
+    </div>
+
+    <nav class="flex-1 px-3.5 py-6 space-y-1">
+      <button data-nav-target="home" class="sidebar-link active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 11.5 12 4l8 7.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.5V19a1 1 0 0 0 1 1h3v-5h4v5h3a1 1 0 0 0 1-1V9.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Homepage
+      </button>
+      <button data-nav-target="interview" class="sidebar-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 4h11a1 1 0 0 1 1 1v13l-4-3H8a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 8v10l3-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Interview
+      </button>
+      <button data-nav-target="jd" class="sidebar-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="10.5" cy="14" r="2.1" stroke="currentColor" stroke-width="1.6"/><path d="M12.1 15.6 14 17.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        AI Job Description
+      </button>
+      <button data-nav-target="about" class="sidebar-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 11v5.5M12 8v.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        About Us
+      </button>
+
+      <div class="pt-4 mt-4 border-t border-hairline">
+        <button data-nav-target="settings" class="sidebar-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M19.4 13.5a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.9 2.9l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V20a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.9-2.9l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H4a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.9-2.9l.1.1a1.7 1.7 0 0 0 1.9.3h0a1.7 1.7 0 0 0 1-1.6V4a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.9 2.9l-.1.1a1.7 1.7 0 0 0-.3 1.9v0a1.7 1.7 0 0 0 1.6 1H20a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          Settings
+        </button>
+      </div>
+    </nav>
+
+    <div class="p-3.5 border-t border-hairline">
+      <div class="flex items-center gap-2.5 px-2.5 py-2">
+        <span id="sidebarAvatar" class="w-9 h-9 rounded-full bg-navy text-white text-xs font-bold flex items-center justify-center shrink-0">R</span>
+        <div class="min-w-0">
+          <p id="sidebarName" class="text-sm font-semibold text-ink truncate">Riya Malhotra</p>
+          <p class="text-xs text-muted">Free plan</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= MOBILE TOP BAR + NAV ================= -->
+  <div class="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-hairline">
+    <div class="flex items-center justify-between h-16 px-4">
+      <a href="/" class="flex items-center gap-2">
+        <span class="w-7 h-7 rounded-[8px] bg-lime flex items-center justify-center">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#14233D" stroke-width="1.8"/><circle cx="12" cy="12" r="1.8" fill="#14233D"/></svg>
+        </span>
+        <span class="font-display font-extrabold text-base text-navy">CareerGPT</span>
+      </a>
+      <button id="mobileNavBtn" aria-label="Open menu" class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-navy/5">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><line x1="3" y1="6" x2="21" y2="6" stroke="#14233D" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="12" x2="21" y2="12" stroke="#14233D" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="18" x2="21" y2="18" stroke="#14233D" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile slide-down nav -->
+  <div id="mobileNavPanel" class="lg:hidden fixed inset-x-0 top-16 z-40 bg-white border-b border-hairline mobile-menu">
+    <nav class="flex flex-col gap-1 p-4">
+      <button data-nav-target="home" class="sidebar-link active w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 11.5 12 4l8 7.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.5V19a1 1 0 0 0 1 1h3v-5h4v5h3a1 1 0 0 0 1-1V9.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Homepage
+      </button>
+      <button data-nav-target="interview" class="sidebar-link w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 4h11a1 1 0 0 1 1 1v13l-4-3H8a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 8v10l3-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Interview
+      </button>
+      <button data-nav-target="jd" class="sidebar-link w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="10.5" cy="14" r="2.1" stroke="currentColor" stroke-width="1.6"/><path d="M12.1 15.6 14 17.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        AI Job Description
+      </button>
+      <button data-nav-target="about" class="sidebar-link w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 11v5.5M12 8v.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        About Us
+      </button>
+      <button data-nav-target="settings" class="sidebar-link w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-left border-t border-hairline mt-2 pt-4">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M19.4 13.5a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.9 2.9l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V20a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.9-2.9l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H4a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.9-2.9l.1.1a1.7 1.7 0 0 0 1.9.3h0a1.7 1.7 0 0 0 1-1.6V4a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.9 2.9l-.1.1a1.7 1.7 0 0 0-.3 1.9v0a1.7 1.7 0 0 0 1.6 1H20a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        Settings
+      </button>
+    </nav>
+  </div>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="flex-1 min-w-0 pt-16 lg:pt-0 relative sunset-bg">
+    <div class="sunset-blob sunset-blob-1" aria-hidden="true"></div>
+    <div class="sunset-blob sunset-blob-2" aria-hidden="true"></div>
+    <div class="sunset-blob sunset-blob-3" aria-hidden="true"></div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-8 lg:py-10 relative z-10">
+
+      <!-- ============ HOMEPAGE SECTION ============ -->
+      <section data-section-panel id="section-home">
+        <div class="mb-8">
+          <h1 id="homeGreeting" class="font-display font-extrabold text-navy text-2xl md:text-[28px] tracking-tight mb-1.5">Welcome back, Riya</h1>
+          <p class="text-muted text-sm">Upload your resume and paste a job link to see how you stack up.</p>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-6">
+
+          <!-- Upload + JD input card -->
+          <div class="bg-white rounded-2xl border border-hairline/60 p-6 md:p-7 card-shadow">
+            <h2 class="font-display font-bold text-navy text-base mb-1">Check your match</h2>
+            <p class="text-muted text-xs mb-6">Step 1: add your resume. Step 2: paste the job link. We'll do the rest.</p>
+
+            <!-- Resume upload -->
+            <p class="text-xs font-bold text-navy uppercase tracking-wide mb-2">Your resume</p>
+            <label id="resumeDropzone" for="resumeInput" class="dropzone flex flex-col items-center justify-center text-center px-6 py-8 rounded-xl cursor-pointer mb-2">
+              <svg id="dropzoneIcon" width="30" height="30" viewBox="0 0 24 24" fill="none" class="mb-3"><path d="M12 16V4M12 4 8 8M12 4l4 4" stroke="#2F6F4E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="#2F6F4E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <p id="dropzoneText" class="text-sm font-semibold text-navy mb-1">Drop your resume here, or click to browse</p>
+              <p id="dropzoneSubtext" class="text-xs text-muted">PDF or DOCX, up to 10MB</p>
+              <input id="resumeInput" type="file" accept=".pdf,.doc,.docx" class="hidden" />
+            </label>
+            <div id="resumeFileChip" class="hidden items-center justify-between bg-panel border border-hairline rounded-xl px-4 py-3 mb-2">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="w-8 h-8 rounded-lg bg-forest/10 flex items-center justify-center shrink-0">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" stroke="#2F6F4E" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v5h5" stroke="#2F6F4E" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                </span>
+                <p id="resumeFileName" class="text-sm font-semibold text-ink truncate"></p>
+              </div>
+              <button id="removeResumeBtn" type="button" aria-label="Remove file" class="text-muted hover:text-coral transition-colors shrink-0 ml-2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+
+            <!-- Job link -->
+            <p class="text-xs font-bold text-navy uppercase tracking-wide mb-2 mt-6">Job posting link</p>
+            <input id="jobLinkInput" type="url" placeholder="Paste a job posting URL" class="auth-input w-full px-4 py-3 rounded-xl text-sm mb-1.5" />
+            <p data-error-for="jobLinkInput" class="field-error hidden text-xs text-coral font-medium mb-1.5"></p>
+            <p class="text-xs text-muted mb-6">Don't have a link? <button id="pasteInsteadBtn" type="button" class="font-semibold text-forest hover:text-navy transition-colors">Paste the description as text instead</button>.</p>
+
+            <textarea id="jobTextInput" rows="5" placeholder="Paste the job description text here" class="auth-input hidden w-full px-4 py-3 rounded-xl text-sm resize-none mb-6"></textarea>
+
+            <button id="checkMatchBtn" class="btn-primary w-full px-7 py-3.5 rounded-full text-base font-bold flex items-center justify-center gap-2.5">
+              <span class="btn-label">Check my match</span>
+              <svg class="btn-spinner hidden animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#14233D" stroke-width="2.5" stroke-opacity="0.25"/><path d="M21 12a9 9 0 0 0-9-9" stroke="#14233D" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+
+          <!-- Results card -->
+          <div class="bg-white rounded-2xl border border-hairline/60 p-6 md:p-7 card-shadow">
+
+            <!-- Empty state -->
+            <div id="matchEmptyState" class="h-full flex flex-col items-center justify-center text-center py-10">
+              <div class="w-14 h-14 rounded-full bg-panel flex items-center justify-center mb-4">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#6B7280" stroke-width="1.6"/><path d="M21 21l-4.3-4.3" stroke="#6B7280" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </div>
+              <h3 class="font-display font-bold text-navy text-sm mb-1.5">Your match score will show up here</h3>
+              <p class="text-muted text-xs max-w-xs">Add your resume and a job link on the left, then run a check.</p>
+            </div>
+
+            <!-- Results state -->
+            <div id="matchResultsState" class="hidden">
+              <div class="flex items-center justify-between mb-6">
+                <h2 class="font-display font-bold text-navy text-base">Match results</h2>
+                <span id="matchJobLabel" class="text-[11px] text-muted bg-cream px-2.5 py-1 rounded-full border border-hairline truncate max-w-[180px]"></span>
+              </div>
+
+              <!-- Score ring -->
+              <div class="flex items-center gap-5 mb-7">
+                <div class="relative w-20 h-20 shrink-0">
+                  <svg width="80" height="80" viewBox="0 0 80 80">
+                    <circle cx="40" cy="40" r="34" fill="none" stroke="#F1F5EE" stroke-width="8"/>
+                    <circle id="scoreRing" cx="40" cy="40" r="34" fill="none" stroke="#2F6F4E" stroke-width="8" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="213.6" transform="rotate(-90 40 40)"/>
+                  </svg>
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <span id="scorePercent" class="font-display font-extrabold text-navy text-lg">0%</span>
+                  </div>
+                </div>
+                <div>
+                  <p id="scoreLabel" class="font-display font-bold text-navy text-sm mb-1">Calculating…</p>
+                  <p class="text-muted text-xs leading-relaxed">Based on skills, experience level, and keyword overlap with the posting.</p>
+                </div>
+              </div>
+
+              <!-- Matched skills -->
+              <p class="text-xs font-bold text-navy uppercase tracking-wide mb-2.5">Skills you already match</p>
+              <div id="matchedSkillsList" class="flex flex-wrap gap-2 mb-6"></div>
+
+              <!-- Missing skills -->
+              <p class="text-xs font-bold text-navy uppercase tracking-wide mb-2.5">Missing or weak skills</p>
+              <div id="missingSkillsList" class="flex flex-wrap gap-2 mb-6"></div>
+
+              <div class="bg-panel rounded-xl p-4 flex items-start gap-3">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="mt-0.5 shrink-0"><path d="M12 2 1 21h22L12 2Z" stroke="#2F6F4E" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9v5M12 17h.01" stroke="#2F6F4E" stroke-width="1.8" stroke-linecap="round"/></svg>
+                <p class="text-xs text-forest leading-relaxed"><span class="font-bold">Tip:</span> add 2–3 of the missing skills above to your resume's skills section if you genuinely have them — even a project mention helps your match score.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============ INTERVIEW SECTION ============ -->
+      <section data-section-panel id="section-interview" class="hidden">
+        <div class="mb-8">
+          <h1 class="font-display font-extrabold text-navy text-2xl md:text-[28px] tracking-tight mb-1.5">Interview practice</h1>
+          <p class="text-muted text-sm">A short sample paper based on your target role. Answer, then submit to see your score.</p>
+        </div>
+
+        <!-- Pre-test state -->
+        <div id="interviewIntroState" class="bg-white rounded-2xl border border-hairline/60 p-7 md:p-9 card-shadow text-center max-w-2xl mx-auto">
+          <div class="w-14 h-14 rounded-full bg-lime/25 flex items-center justify-center mb-5 mx-auto">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8 4h11a1 1 0 0 1 1 1v13l-4-3H8a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z" stroke="#14233D" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          </div>
+          <h2 class="font-display font-bold text-navy text-lg mb-2">Software Engineer Intern — Sample Paper</h2>
+          <p class="text-muted text-sm leading-relaxed mb-6 max-w-md mx-auto">5 questions, mix of short answer and multiple choice. Take your time — there's no timer on practice runs.</p>
+          <button id="startInterviewBtn" class="btn-primary px-8 py-3.5 rounded-full text-base font-bold inline-flex items-center gap-2.5">
+            Start practice paper
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#14233D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <!-- In-progress test state -->
+        <form id="interviewForm" class="hidden max-w-2xl mx-auto">
+          <div class="flex items-center justify-between mb-5">
+            <p class="text-xs font-bold text-navy uppercase tracking-wide">Question <span id="qCurrentNum">1</span> of <span id="qTotalNum">5</span></p>
+            <div class="h-1.5 w-32 bg-hairline rounded-full overflow-hidden">
+              <div id="qProgressBar" class="h-full bg-forest rounded-full transition-all duration-300" style="width:20%"></div>
+            </div>
+          </div>
+
+          <div id="questionsContainer"><!-- populated by JS --></div>
+
+          <div class="flex items-center gap-3 mt-7">
+            <button type="button" id="prevQBtn" class="btn-outline px-6 py-3.5 rounded-full text-sm font-semibold" disabled>Previous</button>
+            <button type="button" id="nextQBtn" class="btn-primary flex-1 px-7 py-3.5 rounded-full text-base font-bold">Next question</button>
+            <button type="submit" id="submitPaperBtn" class="btn-primary flex-1 px-7 py-3.5 rounded-full text-base font-bold hidden items-center justify-center gap-2.5">
+              <span class="btn-label">Submit paper</span>
+              <svg class="btn-spinner hidden animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#14233D" stroke-width="2.5" stroke-opacity="0.25"/><path d="M21 12a9 9 0 0 0-9-9" stroke="#14233D" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </form>
+
+        <!-- Results state -->
+        <div id="interviewResultsState" class="hidden max-w-2xl mx-auto">
+          <div class="bg-white rounded-2xl border border-hairline/60 p-7 md:p-9 card-shadow text-center mb-6">
+            <p class="text-xs font-bold text-forest uppercase tracking-wide mb-3">Your score</p>
+            <p class="font-display font-extrabold text-navy text-5xl tracking-tight mb-2"><span id="finalScore">0</span><span class="text-2xl text-muted">/5</span></p>
+            <p id="finalScoreMsg" class="text-muted text-sm">Nice work — here's how each question went.</p>
+          </div>
+
+          <div id="answerReviewList" class="space-y-3 mb-7"><!-- populated by JS --></div>
+
+          <button id="retakeBtn" class="btn-outline w-full px-7 py-3.5 rounded-full text-base font-semibold">Retake this paper</button>
+        </div>
+      </section>
+
+      <!-- ============ AI JOB DESCRIPTION SECTION ============ -->
+      <section data-section-panel id="section-jd" class="hidden">
+        <div class="mb-8">
+          <h1 class="font-display font-extrabold text-navy text-2xl md:text-[28px] tracking-tight mb-1.5">AI job description parser</h1>
+          <p class="text-muted text-sm">Paste any posting and get it broken down into role, must-haves, and nice-to-haves.</p>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-6">
+
+          <div class="bg-white rounded-2xl border border-hairline/60 p-6 md:p-7 card-shadow">
+            <label for="jdParseInput" class="text-xs font-bold text-navy uppercase tracking-wide mb-2 block">Job description</label>
+            <textarea id="jdParseInput" rows="14" placeholder="Paste the full job posting text here…" class="auth-input w-full px-4 py-3 rounded-xl text-sm resize-none mb-2"></textarea>
+            <p data-error-for="jdParseInput" class="field-error hidden text-xs text-coral font-medium mb-2"></p>
+            <button id="parseJdBtn" class="btn-primary w-full px-7 py-3.5 rounded-full text-base font-bold flex items-center justify-center gap-2.5 mt-3">
+              <span class="btn-label">Parse description</span>
+              <svg class="btn-spinner hidden animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#14233D" stroke-width="2.5" stroke-opacity="0.25"/><path d="M21 12a9 9 0 0 0-9-9" stroke="#14233D" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-hairline/60 p-6 md:p-7 card-shadow">
+
+            <div id="jdEmptyState" class="h-full flex flex-col items-center justify-center text-center py-10">
+              <div class="w-14 h-14 rounded-full bg-panel flex items-center justify-center mb-4">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" stroke="#6B7280" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v5h5" stroke="#6B7280" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </div>
+              <h3 class="font-display font-bold text-navy text-sm mb-1.5">The breakdown will appear here</h3>
+              <p class="text-muted text-xs max-w-xs">Paste a job description on the left and parse it to see the structure.</p>
+            </div>
+
+            <div id="jdResultsState" class="hidden">
+              <div class="mb-5">
+                <p class="text-xs font-bold text-navy uppercase tracking-wide mb-1.5">Detected role</p>
+                <p id="jdDetectedRole" class="font-display font-bold text-navy text-base"></p>
+              </div>
+              <div class="mb-5">
+                <p class="text-xs font-bold text-navy uppercase tracking-wide mb-1.5">Seniority</p>
+                <p id="jdSeniority" class="text-sm text-ink"></p>
+              </div>
+              <div class="mb-5">
+                <p class="text-xs font-bold text-navy uppercase tracking-wide mb-2">Must-have skills</p>
+                <div id="jdMustHave" class="flex flex-wrap gap-2"></div>
+              </div>
+              <div class="mb-5">
+                <p class="text-xs font-bold text-navy uppercase tracking-wide mb-2">Nice-to-have skills</p>
+                <div id="jdNiceToHave" class="flex flex-wrap gap-2"></div>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-navy uppercase tracking-wide mb-2">Key responsibilities</p>
+                <ul id="jdResponsibilities" class="space-y-2"></ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============ ABOUT US SECTION ============ -->
+      <section data-section-panel id="section-about" class="hidden">
+        <div class="mb-8">
+          <h1 class="font-display font-extrabold text-navy text-2xl md:text-[28px] tracking-tight mb-1.5">About us</h1>
+          <p class="text-muted text-sm">Why we built CareerGPT, and who's behind it.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-6">
+
+          <div class="bg-white rounded-2xl border border-hairline/60 p-6 md:p-8 card-shadow">
+            <span class="inline-flex items-center gap-1.5 bg-forest/10 text-forest text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full mb-5">
+              Our story
+            </span>
+            <h2 class="font-display font-bold text-navy text-lg mb-3">Built by students, for students.</h2>
+            <p class="text-sm text-ink leading-relaxed mb-4">
+              Every application season looks the same: a dozen browser tabs, a half-updated spreadsheet, and a resume that's never quite tailored enough. We built CareerGPT because we lived that chaos ourselves — applying to internships across job boards, referrals, email threads, and LinkedIn DMs, with no single place to see where anything stood.
+            </p>
+            <p class="text-sm text-ink leading-relaxed mb-4">
+              CareerGPT pulls all of it into one command centre: a tracker that doesn't lie to you, an AI that reads job descriptions so you don't have to skim them at 1am, and an interview practice space that actually gives you a score instead of just "good luck."
+            </p>
+            <p class="text-sm text-ink leading-relaxed">
+              This project started as a hackathon build — three of us split across frontend, integration, and backend — built in the same spirit it's meant to support: organized, fast, and a little less stressful than the way we used to do it.
+            </p>
+          </div>
+
+          <div class="space-y-5">
+            <div class="bg-navy rounded-2xl p-6 relative overflow-hidden">
+              <div class="cta-glow absolute -right-16 -top-16 w-64 h-64 rounded-full pointer-events-none"></div>
+              <p class="text-xs font-bold text-lime uppercase tracking-wider mb-3 relative z-10">The team</p>
+              <ul class="space-y-3 relative z-10">
+                <li class="flex items-center gap-3">
+                  <span class="w-9 h-9 rounded-full bg-lime text-navy text-xs font-bold flex items-center justify-center shrink-0">FE</span>
+                  <div>
+                    <p class="text-sm font-semibold text-white">Frontend &amp; product design</p>
+                    <p class="text-xs text-white/55">Interface, design system, user experience</p>
+                  </div>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span class="w-9 h-9 rounded-full bg-forest text-white text-xs font-bold flex items-center justify-center shrink-0">IN</span>
+                  <div>
+                    <p class="text-sm font-semibold text-white">Integration &amp; logic</p>
+                    <p class="text-xs text-white/55">Connecting frontend to backend, app logic</p>
+                  </div>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span class="w-9 h-9 rounded-full bg-coral text-white text-xs font-bold flex items-center justify-center shrink-0">BE</span>
+                  <div>
+                    <p class="text-sm font-semibold text-white">Backend &amp; database</p>
+                    <p class="text-xs text-white/55">AI parsing, scoring, data storage</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-hairline/60 p-6 card-shadow">
+              <p class="text-xs font-bold text-navy uppercase tracking-wide mb-3">Get in touch</p>
+              <p class="text-sm text-muted leading-relaxed mb-4">Found a bug, or have an idea that would make this more useful? We'd genuinely like to hear it.</p>
+              <a href="mailto:hello@careergpt.app" class="text-sm font-semibold text-forest hover:text-navy transition-colors inline-flex items-center gap-1.5">
+                hello@careergpt.app
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============ SETTINGS SECTION ============ -->
+      <section data-section-panel id="section-settings" class="hidden">
+        <div class="mb-8">
+          <h1 class="font-display font-extrabold text-navy text-2xl md:text-[28px] tracking-tight mb-1.5">Settings</h1>
+          <p class="text-muted text-sm">Update your profile details. These are the same fields you filled in during setup.</p>
+        </div>
+
+        <div class="max-w-2xl bg-white rounded-2xl border border-hairline/60 p-6 md:p-7 card-shadow">
+          <form id="settingsForm">
+            <div class="mb-4">
+              <label for="settingsName" class="block text-xs font-bold text-navy uppercase tracking-wide mb-2">Full name</label>
+              <input id="settingsName" type="text" class="auth-input w-full px-4 py-3 rounded-xl text-sm" />
+            </div>
+            <div class="mb-4">
+              <label for="settingsRole" class="block text-xs font-bold text-navy uppercase tracking-wide mb-2">Current role / status</label>
+              <input id="settingsRole" type="text" class="auth-input w-full px-4 py-3 rounded-xl text-sm" />
+            </div>
+            <div class="mb-4">
+              <label for="settingsExpectedRole" class="block text-xs font-bold text-navy uppercase tracking-wide mb-2">Expected job role</label>
+              <input id="settingsExpectedRole" type="text" class="auth-input w-full px-4 py-3 rounded-xl text-sm" />
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              <div>
+                <label for="settingsLinkedin" class="block text-xs font-bold text-navy uppercase tracking-wide mb-2">LinkedIn URL</label>
+                <input id="settingsLinkedin" type="url" class="auth-input w-full px-4 py-3 rounded-xl text-sm" />
+              </div>
+              <div>
+                <label for="settingsGithub" class="block text-xs font-bold text-navy uppercase tracking-wide mb-2">GitHub URL</label>
+                <input id="settingsGithub" type="url" class="auth-input w-full px-4 py-3 rounded-xl text-sm" />
+              </div>
+            </div>
+            <button type="submit" class="btn-primary px-7 py-3 rounded-full text-sm font-bold">Save changes</button>
+            <p id="settingsSavedMsg" role="status" class="hidden text-sm font-semibold text-forest mt-3">Changes saved.</p>
+          </form>
+
+          <div class="border-t border-hairline mt-7 pt-6">
+            <button id="logoutBtn" class="text-sm font-semibold text-coral hover:text-navy transition-colors flex items-center gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Log out
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* =========================================================
+     Load profile from onboarding (falls back to demo data)
+     ========================================================= */
+  let profile = { fullName: 'Riya Malhotra', currentRole: 'Final-year CS student', expectedRole: 'Software Engineer Intern', linkedinUrl: '', githubUrl: '' };
+  let target = { companyName: 'Nimbus', jobDescription: '' };
+  try {
+    const p = JSON.parse(sessionStorage.getItem('onboarding_profile') || 'null');
+    const t = JSON.parse(sessionStorage.getItem('onboarding_target') || 'null');
+    if (p) profile = p;
+    if (t) target = t;
+  } catch (err) { /* use defaults */ }
+
+  function initials(name) {
+    return name.trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase() || 'U';
+  }
+  document.getElementById('sidebarAvatar').textContent = initials(profile.fullName);
+  document.getElementById('sidebarName').textContent = profile.fullName;
+  document.getElementById('homeGreeting').textContent = `Welcome back, ${profile.fullName.split(' ')[0]}`;
+
+  document.getElementById('settingsName').value = profile.fullName || '';
+  document.getElementById('settingsRole').value = profile.currentRole || '';
+  document.getElementById('settingsExpectedRole').value = profile.expectedRole || '';
+  document.getElementById('settingsLinkedin').value = profile.linkedinUrl || '';
+  document.getElementById('settingsGithub').value = profile.githubUrl || '';
+
+  /* =========================================================
+     Section navigation (Homepage / Interview / AI JD / Settings)
+     ========================================================= */
+  const navButtons = document.querySelectorAll('[data-nav-target]');
+  const sectionPanels = document.querySelectorAll('[data-section-panel]');
+  const mobileNavPanel = document.getElementById('mobileNavPanel');
+  const mobileNavBtn = document.getElementById('mobileNavBtn');
+
+  function showSection(target) {
+    sectionPanels.forEach((panel) => panel.classList.toggle('hidden', panel.id !== `section-${target}`));
+    navButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.navTarget === target));
+    mobileNavPanel.classList.remove('open');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  navButtons.forEach((btn) => btn.addEventListener('click', () => showSection(btn.dataset.navTarget)));
+
+  mobileNavBtn.addEventListener('click', () => mobileNavPanel.classList.toggle('open'));
+
+  /* =========================================================
+     HOMEPAGE: resume upload + job link/text → match results
+     ========================================================= */
+  const resumeInput = document.getElementById('resumeInput');
+  const resumeDropzone = document.getElementById('resumeDropzone');
+  const resumeFileChip = document.getElementById('resumeFileChip');
+  const resumeFileName = document.getElementById('resumeFileName');
+  const removeResumeBtn = document.getElementById('removeResumeBtn');
+  const dropzoneText = document.getElementById('dropzoneText');
+  const dropzoneSubtext = document.getElementById('dropzoneSubtext');
+
+  function setResumeFile(file) {
+    if (!file) return;
+    resumeFileName.textContent = file.name;
+    resumeFileChip.classList.remove('hidden');
+    resumeFileChip.classList.add('flex');
+    resumeDropzone.classList.add('hidden');
+  }
+
+  resumeInput.addEventListener('change', () => setResumeFile(resumeInput.files[0]));
+
+  ['dragover', 'dragenter'].forEach((evt) =>
+    resumeDropzone.addEventListener(evt, (e) => { e.preventDefault(); resumeDropzone.classList.add('dropzone-active'); })
+  );
+  ['dragleave', 'dragend', 'drop'].forEach((evt) =>
+    resumeDropzone.addEventListener(evt, (e) => { e.preventDefault(); resumeDropzone.classList.remove('dropzone-active'); })
+  );
+  resumeDropzone.addEventListener('drop', (e) => {
+    const file = e.dataTransfer.files[0];
+    if (file) { resumeInput.files = e.dataTransfer.files; setResumeFile(file); }
+  });
+
+  removeResumeBtn.addEventListener('click', () => {
+    resumeInput.value = '';
+    resumeFileChip.classList.add('hidden');
+    resumeFileChip.classList.remove('flex');
+    resumeDropzone.classList.remove('hidden');
+  });
+
+  const jobLinkInput = document.getElementById('jobLinkInput');
+  const jobTextInput = document.getElementById('jobTextInput');
+  const pasteInsteadBtn = document.getElementById('pasteInsteadBtn');
+  let usingTextInput = false;
+
+  pasteInsteadBtn.addEventListener('click', () => {
+    usingTextInput = !usingTextInput;
+    jobLinkInput.classList.toggle('hidden', usingTextInput);
+    jobTextInput.classList.toggle('hidden', !usingTextInput);
+    pasteInsteadBtn.textContent = usingTextInput ? 'Use a link instead' : 'Paste the description as text instead';
+  });
+
+  function setFieldError(inputEl, message) {
+    const errorEl = document.querySelector(`[data-error-for="${inputEl.id}"]`);
+    if (message) {
+      inputEl.classList.add('input-error');
+      if (errorEl) { errorEl.textContent = message; errorEl.classList.remove('hidden'); }
+    } else {
+      inputEl.classList.remove('input-error');
+      if (errorEl) { errorEl.textContent = ''; errorEl.classList.add('hidden'); }
+    }
+  }
+  [jobLinkInput, jobTextInput].forEach((el) => el.addEventListener('input', () => setFieldError(el, '')));
+
+  const checkMatchBtn = document.getElementById('checkMatchBtn');
+  const matchEmptyState = document.getElementById('matchEmptyState');
+  const matchResultsState = document.getElementById('matchResultsState');
+  const scoreRing = document.getElementById('scoreRing');
+  const scorePercent = document.getElementById('scorePercent');
+  const scoreLabel = document.getElementById('scoreLabel');
+  const matchJobLabel = document.getElementById('matchJobLabel');
+  const matchedSkillsList = document.getElementById('matchedSkillsList');
+  const missingSkillsList = document.getElementById('missingSkillsList');
+
+  function skillChip(text, kind) {
+    const span = document.createElement('span');
+    span.className = kind === 'match'
+      ? 'inline-flex items-center gap-1.5 bg-forest/10 text-forest text-xs font-semibold px-3 py-1.5 rounded-full'
+      : 'inline-flex items-center gap-1.5 bg-coral/10 text-coral text-xs font-semibold px-3 py-1.5 rounded-full';
+    span.innerHTML = kind === 'match'
+      ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>${text}`
+      : `<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>${text}`;
+    return span;
+  }
+
+  // NOTE FOR BACKEND/LOGIC TEAMMATE:
+  // This is placeholder demo data so the UI is fully visible and testable.
+  // Replace runMatchCheck() with a real call to your matching API — keep the
+  // same DOM updates (scoreRing dasharray, scorePercent, chip lists) so the
+  // visual result stays identical once real data comes in.
+  function runMatchCheck() {
+    const demoMatched = ['React', 'JavaScript', 'REST APIs', 'Git', 'Problem solving'];
+    const demoMissing = ['Docker', 'AWS', 'GraphQL'];
+    const demoScore = 72;
+
+    matchJobLabel.textContent = usingTextInput
+      ? (target.companyName || 'Pasted description')
+      : (jobLinkInput.value ? new URL(jobLinkInput.value.startsWith('http') ? jobLinkInput.value : `https://${jobLinkInput.value}`).hostname.replace('www.', '') : 'Job posting');
+
+    const circumference = 213.6;
+    const offset = circumference - (circumference * demoScore) / 100;
+    scoreRing.style.strokeDashoffset = offset;
+    scoreRing.setAttribute('stroke', demoScore >= 70 ? '#2F6F4E' : demoScore >= 40 ? '#C8FF4D' : '#E8725A');
+    scorePercent.textContent = `${demoScore}%`;
+    scoreLabel.textContent = demoScore >= 70 ? 'Strong match' : demoScore >= 40 ? 'Partial match' : 'Needs work';
+
+    matchedSkillsList.innerHTML = '';
+    demoMatched.forEach((s) => matchedSkillsList.appendChild(skillChip(s, 'match')));
+    missingSkillsList.innerHTML = '';
+    demoMissing.forEach((s) => missingSkillsList.appendChild(skillChip(s, 'missing')));
+
+    matchEmptyState.classList.add('hidden');
+    matchResultsState.classList.remove('hidden');
+  }
+
+  checkMatchBtn.addEventListener('click', async () => {
+    let valid = true;
+    const hasResume = resumeInput.files.length > 0;
+    const hasLink = !usingTextInput && jobLinkInput.value.trim();
+    const hasText = usingTextInput && jobTextInput.value.trim();
+
+    if (!hasResume) {
+      resumeDropzone.classList.add('dropzone-error');
+      valid = false;
+    } else {
+      resumeDropzone.classList.remove('dropzone-error');
+    }
+
+    if (!usingTextInput) {
+      if (!hasLink) { setFieldError(jobLinkInput, 'Paste a job posting link, or switch to pasting text.'); valid = false; }
+      else setFieldError(jobLinkInput, '');
+    } else {
+      if (!hasText) { setFieldError(jobTextInput, 'Paste the job description text.'); valid = false; }
+      else setFieldError(jobTextInput, '');
+    }
+
+    if (!valid) return;
+
+    checkMatchBtn.disabled = true;
+    checkMatchBtn.classList.add('opacity-70', 'cursor-not-allowed');
+    checkMatchBtn.querySelector('.btn-label').classList.add('hidden');
+    checkMatchBtn.querySelector('.btn-spinner').classList.remove('hidden');
+
+    await new Promise((r) => setTimeout(r, 1300)); // ← replace with real parsing/matching API call
+
+    checkMatchBtn.disabled = false;
+    checkMatchBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+    checkMatchBtn.querySelector('.btn-label').classList.remove('hidden');
+    checkMatchBtn.querySelector('.btn-spinner').classList.add('hidden');
+
+    runMatchCheck();
+  });
+
+  /* =========================================================
+     INTERVIEW: sample paper → marks
+     ========================================================= */
+  // NOTE FOR BACKEND TEAMMATE: replace this array with the real question set
+  // your backend provides. Each question needs: id, type ('mcq' or 'short'),
+  // prompt, and for mcq an `options` array + `correctIndex`. For 'short'
+  // answers there's no auto-grading here — scoring should come from your API;
+  // the placeholder below treats any non-empty short answer as correct.
+  const sampleQuestions = [
+    { id: 1, type: 'mcq', prompt: 'What does REST stand for in the context of web APIs?', options: ['Representational State Transfer', 'Remote Execution Service Transfer', 'Reliable State Transmission', 'Resource Exchange State Type'], correctIndex: 0 },
+    { id: 2, type: 'mcq', prompt: 'Which HTTP method is typically used to update an existing resource?', options: ['GET', 'PUT', 'CONNECT', 'OPTIONS'], correctIndex: 1 },
+    { id: 3, type: 'short', prompt: 'Briefly explain the difference between == and === in JavaScript.' },
+    { id: 4, type: 'mcq', prompt: 'In Git, which command creates a new branch and switches to it?', options: ['git branch -m', 'git switch --create', 'git checkout -b', 'All of the above except the first'], correctIndex: 3 },
+    { id: 5, type: 'short', prompt: 'Describe a time you had to debug a tricky issue. What was your approach?' }
+  ];
+
+  let currentQ = 0;
+  const answers = {};
+
+  const interviewIntroState = document.getElementById('interviewIntroState');
+  const interviewForm = document.getElementById('interviewForm');
+  const interviewResultsState = document.getElementById('interviewResultsState');
+  const questionsContainer = document.getElementById('questionsContainer');
+  const qCurrentNum = document.getElementById('qCurrentNum');
+  const qTotalNum = document.getElementById('qTotalNum');
+  const qProgressBar = document.getElementById('qProgressBar');
+  const prevQBtn = document.getElementById('prevQBtn');
+  const nextQBtn = document.getElementById('nextQBtn');
+  const submitPaperBtn = document.getElementById('submitPaperBtn');
+
+  qTotalNum.textContent = sampleQuestions.length;
+
+  function renderQuestion(index) {
+    const q = sampleQuestions[index];
+    qCurrentNum.textContent = index + 1;
+    qProgressBar.style.width = `${((index + 1) / sampleQuestions.length) * 100}%`;
+
+    let html = `<div class="bg-white rounded-2xl border border-hairline/60 p-6 md:p-7 card-shadow">
+      <p class="font-display font-bold text-navy text-base mb-5">${q.prompt}</p>`;
+
+    if (q.type === 'mcq') {
+      html += '<div class="space-y-2.5">';
+      q.options.forEach((opt, i) => {
+        const checked = answers[q.id] === i ? 'checked' : '';
+        html += `<label class="mcq-option flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer">
+          <input type="radio" name="q${q.id}" value="${i}" class="mcq-radio" ${checked} />
+          <span class="text-sm text-ink">${opt}</span>
+        </label>`;
+      });
+      html += '</div>';
+    } else {
+      const val = answers[q.id] || '';
+      html += `<textarea data-short-answer="${q.id}" rows="4" placeholder="Type your answer…" class="auth-input w-full px-4 py-3 rounded-xl text-sm resize-none">${val}</textarea>`;
+    }
+
+    html += '</div>';
+    questionsContainer.innerHTML = html;
+
+    if (q.type === 'mcq') {
+      questionsContainer.querySelectorAll('.mcq-radio').forEach((radio) => {
+        radio.addEventListener('change', () => { answers[q.id] = parseInt(radio.value, 10); });
+      });
+    } else {
+      const ta = questionsContainer.querySelector('[data-short-answer]');
+      ta.addEventListener('input', () => { answers[q.id] = ta.value; });
+    }
+
+    prevQBtn.disabled = index === 0;
+    const isLast = index === sampleQuestions.length - 1;
+    nextQBtn.classList.toggle('hidden', isLast);
+    submitPaperBtn.classList.toggle('hidden', !isLast);
+    if (isLast) submitPaperBtn.classList.add('flex');
+  }
+
+  document.getElementById('startInterviewBtn').addEventListener('click', () => {
+    interviewIntroState.classList.add('hidden');
+    interviewForm.classList.remove('hidden');
+    currentQ = 0;
+    renderQuestion(0);
+  });
+
+  prevQBtn.addEventListener('click', () => { if (currentQ > 0) { currentQ--; renderQuestion(currentQ); } });
+  nextQBtn.addEventListener('click', () => { if (currentQ < sampleQuestions.length - 1) { currentQ++; renderQuestion(currentQ); } });
+
+  // NOTE FOR BACKEND TEAMMATE: replace gradePaper() with a real call to your
+  // scoring API (send `answers`, receive a score + per-question correctness).
+  // The placeholder logic: MCQs auto-grade against correctIndex; short
+  // answers count as correct if non-empty (so the UI has something to show).
+  function gradePaper() {
+    let score = 0;
+    const review = sampleQuestions.map((q) => {
+      let correct;
+      if (q.type === 'mcq') {
+        correct = answers[q.id] === q.correctIndex;
+      } else {
+        correct = Boolean(answers[q.id] && answers[q.id].trim().length > 0);
+      }
+      if (correct) score++;
+      return { q, correct };
+    });
+    return { score, review };
+  }
+
+  interviewForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitPaperBtn.disabled = true;
+    submitPaperBtn.classList.add('opacity-70', 'cursor-not-allowed');
+    submitPaperBtn.querySelector('.btn-label').classList.add('hidden');
+    submitPaperBtn.querySelector('.btn-spinner').classList.remove('hidden');
+
+    await new Promise((r) => setTimeout(r, 1100)); // ← replace with real grading API call
+
+    const { score, review } = gradePaper();
+
+    document.getElementById('finalScore').textContent = score;
+    const msgEl = document.getElementById('finalScoreMsg');
+    msgEl.textContent = score >= 4 ? 'Excellent work — you\'re well prepared.' : score >= 2 ? 'Solid attempt — review the misses below.' : 'Worth another pass — check what tripped you up.';
+
+    const reviewList = document.getElementById('answerReviewList');
+    reviewList.innerHTML = '';
+    review.forEach(({ q, correct }, i) => {
+      const item = document.createElement('div');
+      item.className = 'bg-white rounded-xl border border-hairline/60 p-4 flex items-start gap-3';
+      item.innerHTML = `
+        <span class="w-6 h-6 rounded-full ${correct ? 'bg-forest' : 'bg-coral'} text-white flex items-center justify-center shrink-0 mt-0.5">
+          ${correct
+            ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+            : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="white" stroke-width="2.4" stroke-linecap="round"/></svg>'}
+        </span>
+        <div class="min-w-0">
+          <p class="text-xs font-bold text-navy uppercase tracking-wide mb-1">Question ${i + 1}</p>
+          <p class="text-sm text-ink leading-relaxed">${q.prompt}</p>
+        </div>`;
+      reviewList.appendChild(item);
+    });
+
+    interviewForm.classList.add('hidden');
+    interviewResultsState.classList.remove('hidden');
+
+    submitPaperBtn.disabled = false;
+    submitPaperBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+    submitPaperBtn.querySelector('.btn-label').classList.remove('hidden');
+    submitPaperBtn.querySelector('.btn-spinner').classList.add('hidden');
+  });
+
+  document.getElementById('retakeBtn').addEventListener('click', () => {
+    Object.keys(answers).forEach((k) => delete answers[k]);
+    interviewResultsState.classList.add('hidden');
+    interviewIntroState.classList.remove('hidden');
+  });
+
+  /* =========================================================
+     AI JOB DESCRIPTION: paste → parsed breakdown
+     ========================================================= */
+  const jdParseInput = document.getElementById('jdParseInput');
+  const parseJdBtn = document.getElementById('parseJdBtn');
+  const jdEmptyState = document.getElementById('jdEmptyState');
+  const jdResultsState = document.getElementById('jdResultsState');
+
+  jdParseInput.addEventListener('input', () => setFieldError(jdParseInput, ''));
+
+  function jdChip(text, kind) {
+    const span = document.createElement('span');
+    span.className = kind === 'must'
+      ? 'inline-flex items-center bg-navy text-white text-xs font-semibold px-3 py-1.5 rounded-full'
+      : 'inline-flex items-center bg-panel text-forest text-xs font-semibold px-3 py-1.5 rounded-full border border-forest/20';
+    span.textContent = text;
+    return span;
+  }
+
+  // NOTE FOR BACKEND TEAMMATE: replace parseJobDescription() with a real call
+  // to your JD-parsing API. Keep the same DOM target IDs so this view updates
+  // identically once real extraction is wired in.
+  function parseJobDescription() {
+    document.getElementById('jdDetectedRole').textContent = target.companyName
+      ? `${profile.expectedRole || 'Software Engineer Intern'} — ${target.companyName}`
+      : (profile.expectedRole || 'Software Engineer Intern');
+    document.getElementById('jdSeniority').textContent = 'Entry-level / Internship';
+
+    const mustHave = ['JavaScript', 'React', 'Git', 'REST APIs', 'Problem solving'];
+    const niceToHave = ['TypeScript', 'Docker', 'AWS', 'GraphQL'];
+    const responsibilities = [
+      'Build and maintain front-end features in collaboration with backend engineers',
+      'Participate in code reviews and contribute to team coding standards',
+      'Debug and resolve issues reported in existing features',
+      'Write clear documentation for the components you build'
+    ];
+
+    const mustHaveEl = document.getElementById('jdMustHave');
+    mustHaveEl.innerHTML = '';
+    mustHave.forEach((s) => mustHaveEl.appendChild(jdChip(s, 'must')));
+
+    const niceToHaveEl = document.getElementById('jdNiceToHave');
+    niceToHaveEl.innerHTML = '';
+    niceToHave.forEach((s) => niceToHaveEl.appendChild(jdChip(s, 'nice')));
+
+    const respEl = document.getElementById('jdResponsibilities');
+    respEl.innerHTML = '';
+    responsibilities.forEach((r) => {
+      const li = document.createElement('li');
+      li.className = 'flex items-start gap-2.5 text-sm text-ink leading-relaxed';
+      li.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-forest mt-2 shrink-0"></span><span>${r}</span>`;
+      respEl.appendChild(li);
+    });
+
+    jdEmptyState.classList.add('hidden');
+    jdResultsState.classList.remove('hidden');
+  }
+
+  parseJdBtn.addEventListener('click', async () => {
+    if (!jdParseInput.value.trim()) {
+      setFieldError(jdParseInput, 'Paste a job description first.');
+      return;
+    }
+    if (jdParseInput.value.trim().length < 40) {
+      setFieldError(jdParseInput, 'That looks too short to be a full job description.');
+      return;
+    }
+    setFieldError(jdParseInput, '');
+
+    parseJdBtn.disabled = true;
+    parseJdBtn.classList.add('opacity-70', 'cursor-not-allowed');
+    parseJdBtn.querySelector('.btn-label').classList.add('hidden');
+    parseJdBtn.querySelector('.btn-spinner').classList.remove('hidden');
+
+    await new Promise((r) => setTimeout(r, 1200)); // ← replace with real parsing API call
+
+    parseJdBtn.disabled = false;
+    parseJdBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+    parseJdBtn.querySelector('.btn-label').classList.remove('hidden');
+    parseJdBtn.querySelector('.btn-spinner').classList.add('hidden');
+
+    parseJobDescription();
+  });
+
+  // Pre-fill from onboarding JD if present
+  if (target.jobDescription) {
+    jdParseInput.value = target.jobDescription;
+  }
+
+  /* =========================================================
+     SETTINGS
+     ========================================================= */
+  document.getElementById('settingsForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    profile.fullName = document.getElementById('settingsName').value.trim() || profile.fullName;
+    profile.currentRole = document.getElementById('settingsRole').value.trim();
+    profile.expectedRole = document.getElementById('settingsExpectedRole').value.trim();
+    profile.linkedinUrl = document.getElementById('settingsLinkedin').value.trim();
+    profile.githubUrl = document.getElementById('settingsGithub').value.trim();
+
+    try { sessionStorage.setItem('onboarding_profile', JSON.stringify(profile)); } catch (err) { /* ignore */ }
+
+    document.getElementById('sidebarAvatar').textContent = initials(profile.fullName);
+    document.getElementById('sidebarName').textContent = profile.fullName;
+    document.getElementById('homeGreeting').textContent = `Welcome back, ${profile.fullName.split(' ')[0]}`;
+
+    const savedMsg = document.getElementById('settingsSavedMsg');
+    savedMsg.classList.remove('hidden');
+    setTimeout(() => savedMsg.classList.add('hidden'), 2500);
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    try { sessionStorage.clear(); } catch (err) { /* ignore */ }
+    window.location.href = 'login.html';
+  });
+
+})();
+</script>
+
+</body>
+</html>
