@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { GoogleGenAI } from "@google/genai";
 import { saveAIAnalysis } from "@/backend/applications";
+import pdfParse from "pdf-parse/lib/pdf-parse.js";
+import mammoth from "mammoth";
 
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
-// Retry wrapper — handles temporary 503 "model overloaded" errors
 async function generateWithRetry(prompt, retries = 3, delayMs = 2000) {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
@@ -27,15 +28,57 @@ async function generateWithRetry(prompt, retries = 3, delayMs = 2000) {
   }
 }
 
+async function extractTextFromFile(file) {
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const name = file.name.toLowerCase();
+
+  if (name.endsWith(".pdf")) {
+    const result = await pdfParse(buffer);
+    return result.text;
+  }
+  if (name.endsWith(".docx")) {
+    const result = await mammoth.extractRawText({ buffer });
+    return result.value;
+  }
+  // .txt or anything else — treat as plain text
+  return buffer.toString("utf-8");
+}
+
 export async function POST(req) {
   try {
-    const { uid, appId, resumeText, jobDescription, company } =
-      await req.json();
+    const contentType = req.headers.get("content-type") || "";
+    let uid, appId, jobDescription, company, resumeText;
+
+    if (contentType.includes("multipart/form-data")) {
+      // File upload path
+      const formData = await req.formData();
+      uid = formData.get("uid");
+      appId = formData.get("appId");
+      jobDescription = formData.get("jobDescription");
+      company = formData.get("company");
+
+      const file = formData.get("resumeFile");
+      if (!file) {
+        return NextResponse.json(
+          { success: false, error: "No resume file provided" },
+          { status: 400 }
+        );
+      }
+      resumeText = await extractTextFromFile(file);
+    } else {
+      // JSON path (still supported — e.g. for pasted-text testing)
+      const body = await req.json();
+      uid = body.uid;
+      appId = body.appId;
+      jobDescription = body.jobDescription;
+      company = body.company;
+      resumeText = body.resumeText;
+    }
 
     if (!resumeText || !jobDescription) {
       return NextResponse.json(
         { success: false, error: "resumeText and jobDescription are required" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -66,10 +109,7 @@ ${jobDescription}
     const result = await generateWithRetry(prompt);
 
     let text = result.text || "";
-    text = text
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
+    text = text.replace(/```json/g, "").replace(/```/g, "").trim();
 
     let analysis;
     try {
@@ -108,7 +148,7 @@ ${jobDescription}
           ? "AI model is currently overloaded. Please try again in a moment."
           : err.message,
       },
-      { status: isOverloaded ? 503 : 500 },
+      { status: isOverloaded ? 503 : 500 }
     );
   }
 }

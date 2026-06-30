@@ -741,14 +741,14 @@ export default function LoginPage() {
                     />
                     <span className="text-sm text-muted leading-snug">
                       I agree to the{" "}
-                      
+                      <a
                         href="#"
                         className="font-semibold text-forest hover:text-navy transition-colors"
                       >
                         Terms
                       </a>{" "}
                       and{" "}
-                      
+                      <a
                         href="#"
                         className="font-semibold text-forest hover:text-navy transition-colors"
                       >

@@ -383,52 +383,43 @@ export default function DashboardPage() {
     setMatchError("");
 
     try {
-      // Read file as text
-      const resumeText = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (e) => resolve(e.target.result);
-        reader.onerror = () => reject(new Error("Could not read file"));
-        reader.readAsText(resumeFile);
-      });
+  const jobDescription = usingTextInput ? jobText : jobLink;
+  const company = usingTextInput ? "Unknown" : getHostname(jobLink);
+  const jobLabel = usingTextInput
+    ? "Pasted description"
+    : getHostname(jobLink);
 
-      const jobDescription = usingTextInput ? jobText : jobLink;
-      const company = usingTextInput ? "Unknown" : getHostname(jobLink);
-      const jobLabel = usingTextInput
-        ? "Pasted description"
-        : getHostname(jobLink);
+  // Step 1: create application
+  const createRes = await fetch("/api/applications/create", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ uid: user.uid, company, jobDescription }),
+  });
+  const createData = await createRes.json();
+  if (!createData.success)
+    throw new Error(createData.error || "Failed to create application");
 
-      // Step 1: create application
-      const createRes = await fetch("/api/applications/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ uid: user.uid, company, jobDescription }),
-      });
-      const createData = await createRes.json();
-      if (!createData.success)
-        throw new Error(createData.error || "Failed to create application");
+  // Step 2: AI resume match — send the actual file, not pre-read text
+  const formData = new FormData();
+  formData.append("uid", user.uid);
+  formData.append("appId", createData.appId);
+  formData.append("jobDescription", jobDescription);
+  formData.append("company", company);
+  formData.append("resumeFile", resumeFile);
 
-      // Step 2: AI resume match
-      const analyzeRes = await fetch("/api/ai/resume-match", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          uid: user.uid,
-          appId: createData.appId,
-          resumeText,
-          jobDescription,
-          company,
-        }),
-      });
-      const analyzeData = await analyzeRes.json();
-      if (!analyzeData.success)
-        throw new Error(analyzeData.error || "Something went wrong");
+  const analyzeRes = await fetch("/api/ai/resume-match", {
+    method: "POST",
+    body: formData, // no Content-Type header — browser sets it automatically for FormData
+  });
+  const analyzeData = await analyzeRes.json();
+  if (!analyzeData.success)
+    throw new Error(analyzeData.error || "Something went wrong");
 
-      setMatchResult({ ...analyzeData.analysis, jobLabel });
-    } catch (err) {
-      console.error(err);
-      setMatchError(err.message || "Network error");
-    }
-
+  setMatchResult({ ...analyzeData.analysis, jobLabel });
+} catch (err) {
+  console.error(err);
+  setMatchError(err.message || "Network error");
+}
     setMatchLoading(false);
   };
 

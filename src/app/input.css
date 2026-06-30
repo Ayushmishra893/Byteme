@@ -286,7 +286,7 @@ a:focus-visible, button:focus-visible {
 .mcq-radio:focus-visible { outline: 2px solid #2F6F4E; outline-offset: 2px; }
 
 /* ===== Homepage slide presentation ===== */
-html, body { height: 100%; }
+html, body { min-height: 100%; }
 
 .slide-track {
   height: 100vh;
@@ -385,7 +385,7 @@ html, body { height: 100%; }
     radial-gradient(circle, rgba(20,35,61,0.05) 1px, transparent 1.4px);
   background-size: 22px 22px;
   background-position: 0 0;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 .dashboard-bg-blob {
